@@ -37,3 +37,12 @@ export const authHandler = async (event: any): Promise<any> => {
         };
     }
 };
+
+export const authorizationHandler = async (event: any): Promise<any> => {
+    return {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: 'Basic test!',
+            }),
+        };
+}
