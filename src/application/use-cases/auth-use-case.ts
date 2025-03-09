@@ -2,6 +2,7 @@ import User from "../../domain/entities/user";
 import UserNotFoundException from "../../infra/exceptions/user-not-found-exceptions";
 import UserRepository from "../contracts/repositories/user-repository";
 import TokenService from "../contracts/services/token-service";
+import CpfNotProvidedException from "../exceptions/cpf-not-provided-exception";
 
 export default class AuthUseCase {
   public constructor(
@@ -11,6 +12,10 @@ export default class AuthUseCase {
   }
 
   public async execute(cpf: string) {
+    if (cpf === '' || cpf === undefined) {
+      throw new CpfNotProvidedException();
+    }
+
     const user = await this.getUser(cpf);
     const output = {
       code: 'AUTHENTICATED',
