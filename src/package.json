@@ -17,6 +17,7 @@
     "start": "../start-api.sh"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "esbuild": "^0.14.14",
     "jsonwebtoken": "^9.0.2"
   },
