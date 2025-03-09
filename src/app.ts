@@ -1,4 +1,7 @@
 // import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import AuthUseCase from './application/use-cases/auth-use-case';
+import TokenService from './application/services/token-service';
+import UserRepository from './infra/repositories/memory/user-repository';
 
 /**
  *
@@ -12,19 +15,24 @@
 
 export const authHandler = async (event: any): Promise<any> => {
     try {
-        console.log(event.body);
+        const body = JSON.parse(event.body);
+
+        const useCase = new AuthUseCase(
+            new UserRepository(),
+            new TokenService(),
+        );
+
+        const output = await useCase.execute(body.cpf);
+
         return {
-            statusCode: 201,
-            body: JSON.stringify({
-                teste: 'Você está autenticado',
-            }),
+            statusCode: 200,
+            body: JSON.stringify(output),
         };
-    } catch (err) {
-        console.log(err);
+    } catch (err: any) {
         return {
             statusCode: 500,
             body: JSON.stringify({
-                message: 'some error happened',
+                message: err.message,
             }),
         };
     }
