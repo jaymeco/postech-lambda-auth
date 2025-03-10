@@ -5,14 +5,16 @@ import AuthorizeUseCase from '../../application/use-cases/authorize-use-case';
 
 describe('Teste do caso de uso de autorizacao', function () {
   it('Deve autorizar um usuario com o token enviado', async () => {
-    const token = "Bearer eyJhbGciOiJIUzI1NiJ9.ODYyMDIyMzA1NDQ.38r5C0eVY9PlH_5CQe1RoeHGEEKOnCWzsrzKrymhOxw";
+    const tokenService = new TokenService();
+    const token = await tokenService.generateToken('86202230544');
+    const accessToken = `Bearer ${token}`;
 
     const useCase = new AuthorizeUseCase(
       new UserMemoryRepository(),
-      new TokenService(),
+      tokenService,
     );
 
-    const output = await useCase.execute(token);
+    const output = await useCase.execute(accessToken);
 
     expect(output.code).toBe('AUTHORIZED');
   });
