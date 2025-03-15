@@ -1,7 +1,8 @@
 // import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import AuthUseCase from './application/use-cases/auth-use-case';
-import TokenService from './application/services/token-service';
-import UserRepository from './infra/repositories/memory/user-repository';
+import provider from './provider';
+import { UserRepositorySymbol } from './application/contracts/repositories/user-repository';
+import { TokenServiceSymbol } from './application/contracts/services/token-service';
 
 /**
  *
@@ -18,8 +19,8 @@ export const authHandler = async (event: any): Promise<any> => {
         const body = JSON.parse(event.body);
 
         const useCase = new AuthUseCase(
-            new UserRepository(),
-            new TokenService(),
+            provider[UserRepositorySymbol],
+            provider[TokenServiceSymbol],
         );
 
         const output = await useCase.execute(body.cpf);
