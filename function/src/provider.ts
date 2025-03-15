@@ -1,9 +1,9 @@
 import { UserRepositorySymbol } from "./application/contracts/repositories/user-repository";
 import { TokenServiceSymbol } from "./application/contracts/services/token-service";
 import TokenService from "./application/services/token-service";
-import UserMemoryRepository from "./infra/repositories/memory/user-repository";
+import UserDynamoRepository from "./infra/repositories/dynamo/user-repository";
 
 export default {
-  [UserRepositorySymbol]: new UserMemoryRepository(),
+  [UserRepositorySymbol]: new UserDynamoRepository(),
   [TokenServiceSymbol]: new TokenService(),
 }
