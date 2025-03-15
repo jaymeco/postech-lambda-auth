@@ -14,7 +14,7 @@ Resources:
   AuthFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: src/
+      CodeUri: function/src/
       Handler: app.authHandler
       Runtime: nodejs22.x
       Architectures:
@@ -41,7 +41,7 @@ Resources:
   AuthorizationFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: src/
+      CodeUri: function/src/
       Handler: app.authorizationHandler
       Runtime: nodejs22.x
       Architectures:
