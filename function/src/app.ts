@@ -3,6 +3,7 @@ import AuthUseCase from './application/use-cases/auth-use-case';
 import provider from './provider';
 import { UserRepositorySymbol } from './application/contracts/repositories/user-repository';
 import { TokenServiceSymbol } from './application/contracts/services/token-service';
+import AuthorizeUseCase from './application/use-cases/authorize-use-case';
 
 /**
  *
@@ -14,9 +15,9 @@ import { TokenServiceSymbol } from './application/contracts/services/token-servi
  *
  */
 
-export const authHandler = async (event: any): Promise<any> => {
+export const authenticationHandler = async (event: any): Promise<any> => {
     try {
-        const body = JSON.parse(event.body);
+        const body = event.body;
 
         const useCase = new AuthUseCase(
             provider[UserRepositorySymbol],
@@ -40,10 +41,26 @@ export const authHandler = async (event: any): Promise<any> => {
 };
 
 export const authorizationHandler = async (event: any): Promise<any> => {
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: 'Basic test!',
-        }),
-    };
+    try {
+        const body = event.body;
+
+        const useCase = new AuthorizeUseCase(
+            provider[UserRepositorySymbol],
+            provider[TokenServiceSymbol],
+        );
+
+        const output = await useCase.execute(body.token);
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(output),
+        };
+    } catch (err: any) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({
+                message: err.message,
+            }),
+        };
+    }
 }
