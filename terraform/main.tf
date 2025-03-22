@@ -1,5 +1,9 @@
 variable "LabRole" {
-  default = "arn:aws:iam::055653651246:role/LabRole"
+  default = "arn:aws:iam::476809694749:role/LabRole"
+}
+
+variable "aws_account_id" {
+  default = "476809694749"
 }
 
 provider "aws" {
@@ -25,7 +29,7 @@ data "archive_file" "zip_application" {
 }
 
 resource "aws_lambda_function" "terraform-functions-lambda" {
-  depends_on = [data.archive_file.zip_application]
+  depends_on = [data.archive_file.zip_application, aws_dynamodb_table.this]
   for_each   = local.lambdas
 
   role     = var.LabRole
@@ -43,4 +47,12 @@ resource "aws_lambda_function" "terraform-functions-lambda" {
       DYNAMO_TABLE_NAME = "postech"
     }
   }
+}
+resource "aws_lambda_permission" "api" {
+  for_each = local.lambdas
+
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.terraform-functions-lambda[each.key].arn
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "arn:aws:execute-api:us-east-1:${var.aws_account_id}:${aws_apigatewayv2_api.this.id}/*/*"
 }
