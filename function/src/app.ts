@@ -17,7 +17,7 @@ import AuthorizeUseCase from './application/use-cases/authorize-use-case';
 
 export const authenticationHandler = async (event: any): Promise<any> => {
     try {
-        const body = event.body;
+        const body = JSON.parse(event.body);
 
         const useCase = new AuthUseCase(
             provider[UserRepositorySymbol],
@@ -42,7 +42,7 @@ export const authenticationHandler = async (event: any): Promise<any> => {
 
 export const authorizationHandler = async (event: any): Promise<any> => {
     try {
-        const body = event.body;
+        const body = JSON.parse(event.body);
 
         const useCase = new AuthorizeUseCase(
             provider[UserRepositorySymbol],
