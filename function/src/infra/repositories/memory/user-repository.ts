@@ -6,7 +6,7 @@ export default class UserRepository implements Contract {
   private database: User[];
 
   public constructor() {
-    this.database = [];
+    this.database = [User.create('86202230544')];
   }
 
   public find(cpf: string): Promise<User> {
@@ -27,5 +27,13 @@ export default class UserRepository implements Contract {
 
       return resolve();
     })
+  }
+
+  public exists(cpf: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const user = this.database.find((user) => user.equals(cpf));
+
+      resolve(user !== undefined)
+    });
   }
 }
