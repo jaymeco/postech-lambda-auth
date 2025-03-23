@@ -8,7 +8,7 @@ variable "aws_account_id" {
 
 provider "aws" {
   region                   = "us-east-1"
-  shared_credentials_files = ["/home/jaymeco/.aws/credentials"]
+  # shared_credentials_files = ["/home/jaymeco/.aws/credentials"]
 }
 
 resource "null_resource" "build_modules" {
