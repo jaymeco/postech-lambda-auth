@@ -3,8 +3,7 @@ name: Apply terraform resources
 on:
   push:
     branches:
-      - main
-      - master
+      - 'master'
     paths:
       - 'terrraform/**'
 
