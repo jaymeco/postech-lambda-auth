@@ -1,4 +1,4 @@
-name: GitHub Actions test Lambda
+name: Running lambda tests
 
 on:
   push:
