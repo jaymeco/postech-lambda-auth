@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: '22.x'
       - name: Instalando Dependencias
-        run: cd ./src && npm install
+        run: cd ./function && npm install
 
       - name: Rodando tests
-        run: cd ./src && npm run unit
+        run: cd ./function && npm run unit
         env:
           JWT_SECRET: basic
 
