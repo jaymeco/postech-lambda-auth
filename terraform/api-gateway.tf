@@ -30,3 +30,9 @@ resource "aws_apigatewayv2_route" "auth-route" {
 output "api_url" {
   value = aws_apigatewayv2_stage.this.invoke_url
 }
+
+resource "aws_ssm_parameter" "lambda_gateway" {
+  name  = "auth-lambda-url"
+  type  = "String"
+  value = aws_apigatewayv2_stage.this.invoke_url
+}
