@@ -1,7 +1,7 @@
 import { expect, describe, it } from '@jest/globals';
-import UserMemoryRepository from '../../infra/repositories/memory/user-repository';
-import TokenService from '../../application/services/token-service';
-import AuthorizeUseCase from '../../application/use-cases/authorize-use-case';
+import UserMemoryRepository from '../../src/infra/repositories/memory/user-repository';
+import TokenService from '../../src/application/services/token-service';
+import AuthorizeUseCase from '../../src/application/use-cases/authorize-use-case';
 
 describe('Teste do caso de uso de autorizacao', function () {
   it('Deve autorizar um usuario com o token enviado', async () => {

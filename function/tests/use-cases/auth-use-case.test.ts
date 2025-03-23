@@ -1,8 +1,8 @@
 import { expect, describe, it } from '@jest/globals';
-import AuthUseCase from '../../application/use-cases/auth-use-case';
-import UserMemoryRepository from '../../infra/repositories/memory/user-repository';
-import TokenService from '../../application/services/token-service';
-import CpfNotProvidedException from '../../application/exceptions/cpf-not-provided-exception';
+import AuthUseCase from '../../src/application/use-cases/auth-use-case';
+import UserMemoryRepository from '../../src/infra/repositories/memory/user-repository';
+import TokenService from '../../src/application/services/token-service';
+import CpfNotProvidedException from '../../src/application/exceptions/cpf-not-provided-exception';
 
 describe('Teste do caso de uso de autenticacao', function () {
   it('Deve autenticar o usuario com cpf ja informado', async () => {
