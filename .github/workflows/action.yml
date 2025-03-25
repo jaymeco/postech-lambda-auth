@@ -1,9 +1,7 @@
 name: Running lambda tests
 
 on:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,7 +12,7 @@ jobs:
       - name: Configurando NodeJs
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: "22.x"
       - name: Instalando Dependencias
         run: cd ./function && npm install
 
@@ -22,4 +20,3 @@ jobs:
         run: cd ./function && npm run unit
         env:
           JWT_SECRET: basic
-
