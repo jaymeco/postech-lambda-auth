@@ -7,8 +7,12 @@ variable "aws_account_id" {
 }
 
 provider "aws" {
-  region                   = "us-east-1"
+  region = "us-east-1"
   # shared_credentials_files = ["/home/jaymeco/.aws/credentials"]
+}
+
+terraform {
+  backend "s3" {}
 }
 
 resource "null_resource" "build_modules" {
